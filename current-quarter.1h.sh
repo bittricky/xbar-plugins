@@ -30,9 +30,9 @@ else
   abbrev_next="Jan–Mar"
 fi
 
-today=$(date +%s)
+today_midnight=$(date -j -f "%Y-%m-%d" "$(date +%Y-%m-%d)" +%s 2>/dev/null || date -d "$(date +%Y-%m-%d)" +%s)
 quarter_end=$(date -j -f "%Y-%m-%d" "$(date +%Y)-$end" +%s 2>/dev/null || date -d "$(date +%Y)-$end" +%s)
-days_left=$(( (quarter_end - today) / 86400 ))
+days_left=$(( (quarter_end - today_midnight) / 86400 + 1 ))
 
 echo "$current ($abbrev_current) • $days_left d → $next ($abbrev_next)"
 echo "---"
